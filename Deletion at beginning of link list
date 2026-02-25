@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Delete node at beginning
+struct Node* deleteAtBeginning(struct Node* head) {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return NULL;
+    }
+
+    struct Node* temp = head;   // store current head
+    head = head->next;          // move head
+    free(temp);                 // delete old head
+
+    return head;
+}
+
+// Display linked list
+void display(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+// Main function
+int main() {
+    struct Node* head = NULL;
+
+    // Creating sample list: 10 -> 20 -> 30
+    head = (struct Node*)malloc(sizeof(struct Node));
+    head->data = 10;
+    head->next = (struct Node*)malloc(sizeof(struct Node));
+    head->next->data = 20;
+    head->next->next = (struct Node*)malloc(sizeof(struct Node));
+    head->next->next->data = 30;
+    head->next->next->next = NULL;
+
+    printf("Before deletion:\n");
+    display(head);
+
+    head = deleteAtBeginning(head);
+
+    printf("After deletion:\n");
+    display(head);
+
+    return 0;
+}
