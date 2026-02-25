@@ -1,0 +1,25 @@
+#include <stdio.h>
+#define V 5
+
+int graph[V][V] = {
+    {0,1,1,0,0},
+    {1,0,1,1,0},
+    {1,1,0,0,1},
+    {0,1,0,0,1},
+    {0,0,1,1,0}
+};
+
+int visited[V];
+int queue[V], front = 0, rear = 0;
+
+void bfs(int start) {
+    visited[start] = 1;
+    queue[rear++] = start;
+
+    while (front < rear) {
+        int node = queue[front++];
+        printf("%d ", node);
+
+        for (int i = 0; i < V; i++) {
+            if (graph[node][i] && !visited[i]) {
+                visited[i] = 1;
